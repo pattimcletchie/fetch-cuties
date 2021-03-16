@@ -8,7 +8,7 @@ const Kitten = () => {
 
   // get kitten picture
   function getImage() {
-    fetch('https://www.placekitten.com/600/300', {
+    fetch('http://www.placekitten.com/600/300', {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
