@@ -1,33 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import Photo from './Photo';
 
 // create Kitten component
 const Kitten = () => {
-  async function storedImageUrl() {
-    const response = await fetch('http://placekitten.com/600/300');
-    const catUrl = response.url;
-    return catUrl;
-    // .then(
-    //   (data) => {
-    //     const imageUrl = data.url;
-    //     return imageUrl;
-    //   }
-    // );
-  }
+  const [picture, setPicture] = useState(0);
 
-  const imagePath = storedImageUrl().then((response) => console.log(response));
+  // get kitten picture
+  function getImage() {
+    fetch('http://placekitten.com/600/300', {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    }).then((response) => {
+      console.log('response', response);
+      if (!response.ok) {
+        throw Error('Error fetching your cutie');
+      }
+      return (response) =>
+        response
+          .text()
+          .then((text) => console.log(text))
+          .json()
+          .then((allData) => {
+            setPicture({ photos: allData });
+          })
+          .catch((err) => {
+            throw Error(err.message);
+          });
+    });
+  }
 
   return (
     <div>
       <h3>Awesome Cat</h3>
       <div className="displayFlex">
-        <img src={imagePath} alt="awesome cutie" />
-        <button>Get a Cutie</button>
+        <Photo photos={picture.url} />
+        <button onClick={getImage}>Get a Cutie</button>
       </div>
     </div>
   );
 };
 
-// get kitten picture
 // render result of fetch
 
 // export Kitten
