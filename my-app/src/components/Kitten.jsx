@@ -4,7 +4,7 @@ import Photo from './Photo';
 
 // create Kitten component
 const Kitten = () => {
-  const [pictureUrl, setPictureUrl] = useState(0);
+  const [pictureUrl, setPictureUrl] = useState(null);
 
   // get kitten picture
   function getImage() {
@@ -19,17 +19,7 @@ const Kitten = () => {
         if (!response.ok) {
           throw Error('Error fetching your cutie');
         }
-        return (response) =>
-          response
-            .text()
-            .then((text) => console.log(text))
-            .json()
-            .then((allData) => {
-              setPictureUrl({ photos: allData });
-            })
-            .catch((err) => {
-              throw Error(err.message);
-            });
+        setPictureUrl(response.url);
       },
       (error) => {
         console.log(error);
