@@ -1,6 +1,8 @@
+import { Box, Button, Grommet } from 'grommet';
 import React, { useState } from 'react';
 
 import Photo from './Photo';
+import { grommet } from 'grommet/themes';
 
 // create Kitten component
 const Kitten = () => {
@@ -26,19 +28,23 @@ const Kitten = () => {
       }
     );
   }
-
+  // render result of fetch
   return (
-    <div>
-      <h3>Awesome Cat</h3>
-      <div className="displayFlex">
+    <Grommet theme={grommet}>
+      <Box
+        direction="column"
+        justify="center"
+        align="center"
+        pad="small"
+        gap="medium"
+      >
+        <h3>Awesome Cat</h3>
         <Photo url={pictureUrl} />
-        <button onClick={getImage}>Get a Cutie</button>
-      </div>
-    </div>
+        <Button label="Get a Cutie" onClick={getImage} color="primary" />
+      </Box>
+    </Grommet>
   );
 };
-
-// render result of fetch
 
 // export Kitten
 export default Kitten;
