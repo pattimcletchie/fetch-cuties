@@ -1,5 +1,5 @@
-import { Box, Button, Grommet } from 'grommet';
-import React, { useEffect, useState } from 'react';
+import { Box, Button, Grommet, TextInput } from 'grommet';
+import React, { useState } from 'react';
 
 import Photo from './Photo';
 import axios from 'axios';
@@ -8,21 +8,30 @@ import { grommet } from 'grommet/themes';
 // create puppy component
 const Puppy = () => {
   // get puppy picture with axios
-  const axios = require('axios');
+  // const axios = require('axios'); common JS import
 
   const [pictureUrl, setPictureUrl] = useState('');
-
-  const url = 'https://place-puppy.com/300x300';
 
   function getImage() {
     axios({
       method: 'get',
       url: 'https://place-puppy.com/300x300',
-      responseType: 'stream',
     }).then(function (response) {
       setPictureUrl(response.config.url);
     });
   }
+
+  const [value, setValue] = useState('');
+
+  const onInput = (event) => setValue(event.target.value);
+
+  // listen for submit of input value
+
+  // take submitted value and render X image blocks
+
+  // create forEach to map over the array of X images
+
+  // image box to reuse
 
   return (
     // render puppy
@@ -35,7 +44,16 @@ const Puppy = () => {
         gap="medium"
       >
         <Photo url={pictureUrl} />
-        <Button label="Get a Cutie" onClick={getImage} color="primary" />
+
+        <Box width="xsmall">
+          <TextInput value={value} onChange={onInput} />
+        </Box>
+        <Button
+          label="Get a Cutie"
+          onChange={getImage}
+          type="submit"
+          color="primary"
+        />
       </Box>
     </Grommet>
   );
